@@ -14,7 +14,7 @@ public class MyFileWriter {
    }
 
    public static void main(String[] var0) {
-      String var1 = "Hello, World!";
+      String var1 = "Hello, my name  is aviv and this is my first repo!";
       String var2 = "example1.txt";
       String var3 = "example2.txt";
       String var4 = "example3.txt";

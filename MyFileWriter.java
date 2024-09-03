@@ -1,111 +1,50 @@
-// Source code is decompiled from a .class file using FernFlower decompiler.
-import java.io.BufferedOutputStream;
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
+
+import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.OpenOption;
-import java.nio.file.Paths;
+import java.nio.file.*;
 
 public class MyFileWriter {
-   public MyFileWriter() {
-   }
+    public static void main(String[] args) {
+        String data = "Hello, World!";
+        String fileName1 = "example1.txt";
+        String fileName2 = "example2.txt";
+        String fileName3 = "example3.txt";
+        String fileName4 = "example4.txt";
+        String fileName5 = "example5.txt";
 
-   public static void main(String[] var0) {
-      String var1 = "Hello, my name  is aviv and this is my first repo!";
-      String var2 = "example1.txt";
-      String var3 = "example2.txt";
-      String var4 = "example3.txt";
-      String var5 = "example4.txt";
-      String var6 = "example5.txt";
+        // 1. Using FileWriter
+        try (FileWriter writer = new FileWriter(fileName1)) {
+            writer.write(data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-      try {
-         FileWriter var7 = new FileWriter(var2);
+        // 2. Using BufferedWriter
+        try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName2))) {
+            bufferedWriter.write(data);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-         try {
-            var7.write(var1);
-         } catch (Throwable var21) {
-            try {
-               var7.close();
-            } catch (Throwable var20) {
-               var21.addSuppressed(var20);
-            }
+        // 3. Using FileOutputStream
+        try (FileOutputStream outputStream = new FileOutputStream(fileName3)) {
+            outputStream.write(data.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-            throw var21;
-         }
+        // 4. Using BufferedOutputStream
+        try (BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(fileName4))) {
+            bufferedOutputStream.write(data.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-         var7.close();
-      } catch (IOException var22) {
-         var22.printStackTrace();
-      }
-
-      try {
-         BufferedWriter var23 = new BufferedWriter(new FileWriter(var3));
-
-         try {
-            var23.write(var1);
-         } catch (Throwable var18) {
-            try {
-               var23.close();
-            } catch (Throwable var17) {
-               var18.addSuppressed(var17);
-            }
-
-            throw var18;
-         }
-
-         var23.close();
-      } catch (IOException var19) {
-         var19.printStackTrace();
-      }
-
-      try {
-         FileOutputStream var24 = new FileOutputStream(var4);
-
-         try {
-            var24.write(var1.getBytes());
-         } catch (Throwable var15) {
-            try {
-               var24.close();
-            } catch (Throwable var14) {
-               var15.addSuppressed(var14);
-            }
-
-            throw var15;
-         }
-
-         var24.close();
-      } catch (IOException var16) {
-         var16.printStackTrace();
-      }
-
-      try {
-         BufferedOutputStream var25 = new BufferedOutputStream(new FileOutputStream(var5));
-
-         try {
-            var25.write(var1.getBytes());
-         } catch (Throwable var12) {
-            try {
-               var25.close();
-            } catch (Throwable var11) {
-               var12.addSuppressed(var11);
-            }
-
-            throw var12;
-         }
-
-         var25.close();
-      } catch (IOException var13) {
-         var13.printStackTrace();
-      }
-
-      try {
-         Files.write(Paths.get(var6), var1.getBytes(StandardCharsets.UTF_8), new OpenOption[0]);
-      } catch (IOException var10) {
-         var10.printStackTrace();
-      }
-
-   }
+        // 5. Using Files (java.nio.file)
+        try {
+            Files.write(Paths.get(fileName5), data.getBytes(StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
